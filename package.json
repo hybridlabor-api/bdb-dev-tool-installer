@@ -1,0 +1,31 @@
+{
+  "name": "@hybridlabor-api/bdb-dev-tool-installer",
+  "version": "1.0.0",
+  "description": "Cross-platform installer for BDB-DEV core tools (memB, OpenWiki, Token-Saver)",
+  "main": "installer.js",
+  "bin": {
+    "bdb-dev-tool-installer": "installer.js",
+    "bdb-tools": "installer.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hybridlabor-api/bdb-dev-tool-installer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hybridlabor-api/bdb-dev-tool-installer/issues"
+  },
+  "homepage": "https://github.com/hybridlabor-api/bdb-dev-tool-installer#readme",
+  "files": [
+    "installer.js",
+    "registry.json",
+    "install.sh",
+    "install.ps1",
+    "README.md",
+    "tools/"
+  ],
+  "author": "BDB DEV",
+  "license": "ISC"
+}

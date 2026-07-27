@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "tools": [
+    {
+      "id": "memb-mcp",
+      "name": "memB Long-Term Memory Engine",
+      "description": "Local-first hybrid vector memory engine for AI coding agents",
+      "type": "mcp",
+      "path": "tools/memb-mcp",
+      "default": true
+    },
+    {
+      "id": "openwiki",
+      "name": "BDB OpenWiki",
+      "description": "Autonomous documentation management & release notes daemon",
+      "type": "skill_daemon",
+      "path": "tools/openwiki",
+      "default": true
+    },
+    {
+      "id": "token-saver",
+      "name": "BDB Token-Saver",
+      "description": "CLI output context window compressor engine (60-99% token savings)",
+      "type": "plugin_hooks",
+      "path": "tools/token-saver",
+      "default": true
+    }
+  ]
+}
