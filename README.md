@@ -1,4 +1,8 @@
-# 🛠️ BDB DEV Tool Installer
+<div align="center">
+  <img src="assets/logo.png" alt="Heimdall Logo" width="400"/>
+
+  # 🛠️ BDB DEV Tool Installer
+</div>
 
 A modular, cross-platform installer designed to deploy and manage core **BDB DEV Tools** — **BDB Token-Saver**, **memB**, and **BDB OpenWiki** — across macOS, Linux, and Windows environments.
 
