@@ -1,29 +1,235 @@
 {
-  "version": "1.0.0",
-  "tools": [
-    {
-      "id": "memb-mcp",
-      "name": "memB Long-Term Memory Engine",
-      "description": "Local-first hybrid vector memory engine for AI coding agents",
-      "type": "mcp",
-      "path": "tools/memb-mcp",
-      "default": true
-    },
-    {
-      "id": "openwiki",
-      "name": "BDB OpenWiki",
-      "description": "Autonomous documentation management & release notes daemon",
-      "type": "skill_daemon",
-      "path": "tools/openwiki",
-      "default": true
-    },
-    {
-      "id": "token-saver",
-      "name": "BDB Token-Saver",
-      "description": "CLI output context window compressor engine (60-99% token savings)",
-      "type": "plugin_hooks",
-      "path": "tools/token-saver",
-      "default": true
-    }
-  ]
+  "version": "2.0.0",
+  "categories": {
+    "Core Tools": [
+      {
+        "id": "memb-mcp",
+        "name": "memB Long-Term Memory Engine",
+        "description": "Local-first hybrid vector memory engine for AI coding agents",
+        "type": "mcp",
+        "path": "tools/memb-mcp",
+        "default": true
+      },
+      {
+        "id": "openwiki",
+        "name": "BDB OpenWiki",
+        "description": "Autonomous documentation management & release notes daemon",
+        "type": "skill_daemon",
+        "path": "tools/openwiki",
+        "default": true
+      },
+      {
+        "id": "token-saver",
+        "name": "BDB Token-Saver",
+        "description": "CLI output context window compressor engine (60-99% token savings)",
+        "type": "plugin_hooks",
+        "path": "tools/token-saver",
+        "default": true
+      }
+    ],
+    "BDB MCPs": [
+      {
+        "id": "RhinoMCP",
+        "name": "RhinoMCP",
+        "description": "BDB MCP for RhinoMCP",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/RhinoMCP",
+        "default": false
+      },
+      {
+        "id": "adobe_mcp.py",
+        "name": "adobe_mcp.py",
+        "description": "BDB MCP for adobe_mcp.py",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/adobe_mcp.py",
+        "default": false
+      },
+      {
+        "id": "adobe_uxp_mcp",
+        "name": "adobe_uxp_mcp",
+        "description": "BDB MCP for adobe_uxp_mcp",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/adobe_uxp_mcp",
+        "default": false
+      },
+      {
+        "id": "ae-mcp",
+        "name": "ae-mcp",
+        "description": "BDB MCP for ae-mcp",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/ae-mcp",
+        "default": false
+      },
+      {
+        "id": "after-effects-mcp",
+        "name": "after-effects-mcp",
+        "description": "BDB MCP for after-effects-mcp",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/after-effects-mcp",
+        "default": false
+      },
+      {
+        "id": "blender-mcp",
+        "name": "blender-mcp",
+        "description": "BDB MCP for blender-mcp",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/blender-mcp",
+        "default": false
+      },
+      {
+        "id": "blender-mcp-server",
+        "name": "blender-mcp-server",
+        "description": "BDB MCP for blender-mcp-server",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/blender-mcp-server",
+        "default": false
+      },
+      {
+        "id": "computer-use-mcp",
+        "name": "computer-use-mcp",
+        "description": "BDB MCP for computer-use-mcp",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/computer-use-mcp",
+        "default": false
+      },
+      {
+        "id": "davinci-mcp-professional",
+        "name": "davinci-mcp-professional",
+        "description": "BDB MCP for davinci-mcp-professional",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/davinci-mcp-professional",
+        "default": false
+      },
+      {
+        "id": "davinci-resolve-mcp",
+        "name": "davinci-resolve-mcp",
+        "description": "BDB MCP for davinci-resolve-mcp",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/davinci-resolve-mcp",
+        "default": false
+      },
+      {
+        "id": "davinci-resolve-mcp-free",
+        "name": "davinci-resolve-mcp-free",
+        "description": "BDB MCP for davinci-resolve-mcp-free",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/davinci-resolve-mcp-free",
+        "default": false
+      },
+      {
+        "id": "golem-rhino-mcp",
+        "name": "golem-rhino-mcp",
+        "description": "BDB MCP for golem-rhino-mcp",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/golem-rhino-mcp",
+        "default": false
+      },
+      {
+        "id": "grandma3_mcp.py",
+        "name": "grandma3_mcp.py",
+        "description": "BDB MCP for grandma3_mcp.py",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/grandma3_mcp.py",
+        "default": false
+      },
+      {
+        "id": "memb-mcp",
+        "name": "memb-mcp",
+        "description": "BDB MCP for memb-mcp",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/memb-mcp",
+        "default": false
+      },
+      {
+        "id": "resolume_mcp.py",
+        "name": "resolume_mcp.py",
+        "description": "BDB MCP for resolume_mcp.py",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/resolume_mcp.py",
+        "default": false
+      },
+      {
+        "id": "tdmcp",
+        "name": "tdmcp",
+        "description": "BDB MCP for tdmcp",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/tdmcp",
+        "default": false
+      },
+      {
+        "id": "touchdesigner-mcp",
+        "name": "touchdesigner-mcp",
+        "description": "BDB MCP for touchdesigner-mcp",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/touchdesigner-mcp",
+        "default": false
+      },
+      {
+        "id": "unreal_mcp",
+        "name": "unreal_mcp",
+        "description": "BDB MCP for unreal_mcp",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/unreal_mcp",
+        "default": false
+      },
+      {
+        "id": "vectorworks-mcp",
+        "name": "vectorworks-mcp",
+        "description": "BDB MCP for vectorworks-mcp",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/vectorworks-mcp",
+        "default": false
+      },
+      {
+        "id": "windows-computer-use-mcp",
+        "name": "windows-computer-use-mcp",
+        "description": "BDB MCP for windows-computer-use-mcp",
+        "type": "mcp",
+        "path": "/Users/timrennings/bdb-dev-optimized-agent-skills/mcps/windows-computer-use-mcp",
+        "default": false
+      }
+    ],
+    "Hybridlabor API Repositories": [
+      {
+        "id": "bdb-dev-optimized-agent-skills",
+        "name": "BDB Dev Optimized Agent Skills",
+        "description": "Agent skills optimized for BDB",
+        "type": "git_clone",
+        "path": "https://github.com/hybridlabor-api/bdb-dev-optimized-agent-skills.git",
+        "default": false
+      },
+      {
+        "id": "bdb-dev-optimized-antigravity-skills",
+        "name": "BDB Dev Optimized Antigravity Skills",
+        "description": "Antigravity skills optimized for BDB",
+        "type": "git_clone",
+        "path": "https://github.com/hybridlabor-api/bdb-dev-optimized-antigravity-skills.git",
+        "default": false
+      },
+      {
+        "id": "ebay-kleinanzeigen-api",
+        "name": "Ebay Kleinanzeigen API",
+        "description": "API wrapper for eBay Kleinanzeigen",
+        "type": "git_clone",
+        "path": "https://github.com/hybridlabor-api/ebay-kleinanzeigen-api.git",
+        "default": false
+      },
+      {
+        "id": "heimdall-token-saver",
+        "name": "Heimdall Token Saver",
+        "description": "Context window compressor engine",
+        "type": "git_clone",
+        "path": "https://github.com/hybridlabor-api/heimdall-token-saver.git",
+        "default": false
+      },
+      {
+        "id": "HYBRIDLABOR-AGENCY",
+        "name": "HYBRIDLABOR AGENCY",
+        "description": "Hybridlabor Agency website/tools",
+        "type": "git_clone",
+        "path": "https://github.com/hybridlabor-api/HYBRIDLABOR-AGENCY.git",
+        "default": false
+      }
+    ]
+  }
 }

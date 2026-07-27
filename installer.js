@@ -4,7 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 const os = require('os');
-const { execSync, spawn } = require('child_process');
+const { execSync } = require('child_process');
+const { MultiSelect, Confirm } = require('enquirer');
 
 const colors = {
     reset: "\x1b[0m",
@@ -17,7 +18,7 @@ const colors = {
 };
 
 console.log(`\n${colors.cyan}${colors.bold}=========================================================${colors.reset}`);
-console.log(`${colors.cyan}${colors.bold} 🛠️ Starting BDB DEV Tool Installer (memB, OpenWiki, Token-Saver)${colors.reset}`);
+console.log(`${colors.cyan}${colors.bold} 🛠️ Starting BDB DEV Tool Installer${colors.reset}`);
 console.log(`${colors.cyan}${colors.bold}=========================================================${colors.reset}\n`);
 
 const homeDir = os.homedir();
@@ -25,13 +26,23 @@ const scriptDir = __dirname;
 const isAutoYes = process.argv.includes('-y') || process.argv.includes('--yes');
 
 const registryPath = path.join(scriptDir, 'registry.json');
-let registry = { tools: [] };
+let registry = { categories: {} };
 if (fs.existsSync(registryPath)) {
     try {
         registry = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
     } catch (e) {
         console.error("Warning: Failed to load registry.json");
     }
+}
+
+// Extract all tools to reference their config
+let allTools = [];
+if (registry.categories) {
+    for (const [catName, tools] of Object.entries(registry.categories)) {
+        tools.forEach(t => allTools.push({...t, category: catName}));
+    }
+} else if (registry.tools) {
+    registry.tools.forEach(t => allTools.push({...t, category: 'Default'}));
 }
 
 const rl = readline.createInterface({
@@ -50,42 +61,132 @@ function detectTargetDirectories() {
 
 async function promptToolSelection() {
     if (isAutoYes) {
-        return registry.tools.map(t => t.id);
+        return allTools.map(t => t.id);
     }
 
-    console.log(`${colors.magenta}${colors.bold}--- Select BDB-DEV Tools to Install ---${colors.reset}`);
-    const selections = registry.tools.map(tool => ({ ...tool, selected: tool.default }));
+    let selectedIds = [];
 
-    const displayMenu = () => {
-        console.log("");
-        selections.forEach((tool, index) => {
-            const check = tool.selected ? `${colors.green}x${colors.reset}` : ' ';
-            console.log(` ${colors.cyan}${index + 1}.${colors.reset} [${check}] ${colors.bold}${tool.name}${colors.reset} - ${colors.dim}${tool.description}${colors.reset}`);
+    // Core Tools
+    if (registry.categories && registry.categories['Core Tools']) {
+        const coreTools = registry.categories['Core Tools'];
+        const corePrompt = new MultiSelect({
+            name: 'core',
+            message: 'Select Core Tools to install (Space to toggle, Enter to confirm):',
+            choices: coreTools.map(tool => ({
+                name: tool.id,
+                message: tool.name,
+                hint: tool.description,
+                initial: tool.default
+            }))
         });
-        console.log(`\n${colors.dim}Type a number to toggle, 'all' to select all, 'none' to clear, or press ENTER/done to proceed:${colors.reset}`);
-    };
+        
+        try {
+            const coreAnswers = await corePrompt.run();
+            selectedIds = selectedIds.concat(coreAnswers);
+        } catch (err) {
+            console.log('\nInstallation cancelled.');
+            process.exit(0);
+        }
+    }
 
-    return new Promise((resolve) => {
-        const ask = () => {
-            displayMenu();
-            rl.question('\n> ', (answer) => {
-                const input = answer.trim().toLowerCase();
-                if (input === 'done' || input === '') {
-                    resolve(selections.filter(s => s.selected).map(s => s.id));
-                    return;
-                }
-                if (input === 'all') { selections.forEach(s => s.selected = true); }
-                else if (input === 'none') { selections.forEach(s => s.selected = false); }
-                else {
-                    const num = parseInt(input, 10);
-                    if (!isNaN(num) && num > 0 && num <= selections.length) { selections[num - 1].selected = !selections[num - 1].selected; }
-                    else { console.log('Invalid input. Please try again.'); }
-                }
-                ask();
+    // BDB MCPs
+    if (registry.categories && registry.categories['BDB MCPs']) {
+        let wantMcps = false;
+        try {
+            const wantMcpsPrompt = new Confirm({
+                name: 'wantMcps',
+                message: 'Do you want to install any BDB MCPs?'
             });
-        };
-        ask();
-    });
+            wantMcps = await wantMcpsPrompt.run();
+        } catch (err) {
+            console.log('\nInstallation cancelled.');
+            process.exit(0);
+        }
+
+        if (wantMcps) {
+            const mcpTools = registry.categories['BDB MCPs'];
+            const mcpPrompt = new MultiSelect({
+                name: 'mcps',
+                message: 'Select BDB MCPs to install (Space to toggle, Enter to confirm):',
+                limit: 15,
+                choices: mcpTools.map(tool => ({
+                    name: tool.id,
+                    message: tool.name,
+                    hint: tool.description,
+                    initial: tool.default
+                }))
+            });
+            
+            try {
+                const mcpAnswers = await mcpPrompt.run();
+                selectedIds = selectedIds.concat(mcpAnswers);
+            } catch (err) {
+                console.log('\nInstallation cancelled.');
+                process.exit(0);
+            }
+        }
+    }
+
+    // Hybridlabor API Repositories
+    if (registry.categories && registry.categories['Hybridlabor API Repositories']) {
+        let wantRepos = false;
+        try {
+            const wantReposPrompt = new Confirm({
+                name: 'wantRepos',
+                message: 'Do you want to clone any Hybridlabor API Repositories?'
+            });
+            wantRepos = await wantReposPrompt.run();
+        } catch (err) {
+            console.log('\nInstallation cancelled.');
+            process.exit(0);
+        }
+
+        if (wantRepos) {
+            const repoTools = registry.categories['Hybridlabor API Repositories'];
+            const repoPrompt = new MultiSelect({
+                name: 'repos',
+                message: 'Select repositories to clone (Space to toggle, Enter to confirm):',
+                limit: 15,
+                choices: repoTools.map(tool => ({
+                    name: tool.id,
+                    message: tool.name,
+                    hint: tool.description,
+                    initial: tool.default
+                }))
+            });
+            
+            try {
+                const repoAnswers = await repoPrompt.run();
+                selectedIds = selectedIds.concat(repoAnswers);
+            } catch (err) {
+                console.log('\nInstallation cancelled.');
+                process.exit(0);
+            }
+        }
+    }
+
+    // Fallback if no categories
+    if (!registry.categories && registry.tools) {
+        const fallbackPrompt = new MultiSelect({
+            name: 'tools',
+            message: 'Select tools to install:',
+            choices: registry.tools.map(tool => ({
+                name: tool.id,
+                message: tool.name,
+                hint: tool.description,
+                initial: tool.default
+            }))
+        });
+        try {
+            const fallbackAnswers = await fallbackPrompt.run();
+            selectedIds = selectedIds.concat(fallbackAnswers);
+        } catch (err) {
+            console.log('\nInstallation cancelled.');
+            process.exit(0);
+        }
+    }
+
+    return selectedIds;
 }
 
 async function promptCredentials() {
@@ -115,10 +216,10 @@ function copyDirRecursiveSync(src, dest) {
     }
 }
 
-async function installMembMcp(targetMcpDir) {
-    console.log(`\n${colors.cyan}1. Setting up memB Long-Term Memory Engine...${colors.reset}`);
-    const srcMemb = path.join(scriptDir, 'tools', 'memb-mcp');
-    const destMemb = path.join(targetMcpDir, 'mcps', 'memb-mcp');
+async function installMembMcp(targetMcpDir, toolInfo) {
+    console.log(`\n${colors.cyan}Setting up memB Long-Term Memory Engine...${colors.reset}`);
+    const srcMemb = path.isAbsolute(toolInfo.path) ? toolInfo.path : path.join(scriptDir, toolInfo.path);
+    const destMemb = path.join(targetMcpDir, 'memb-mcp'); // nested for isolated env
 
     copyDirRecursiveSync(srcMemb, destMemb);
     console.log(` -> Copied memB files to ${destMemb}`);
@@ -137,9 +238,9 @@ async function installMembMcp(targetMcpDir) {
     }
 }
 
-async function installOpenWiki(targetSkillDir, apiKey) {
-    console.log(`\n${colors.cyan}2. Setting up BDB OpenWiki Daemon & Skill...${colors.reset}`);
-    const srcOpenWiki = path.join(scriptDir, 'tools', 'openwiki');
+async function installOpenWiki(targetSkillDir, apiKey, toolInfo) {
+    console.log(`\n${colors.cyan}Setting up BDB OpenWiki Daemon & Skill...${colors.reset}`);
+    const srcOpenWiki = path.isAbsolute(toolInfo.path) ? toolInfo.path : path.join(scriptDir, toolInfo.path);
     const destOpenWiki = path.join(targetSkillDir, 'openwiki-skill');
 
     copyDirRecursiveSync(srcOpenWiki, destOpenWiki);
@@ -166,9 +267,9 @@ async function installOpenWiki(targetSkillDir, apiKey) {
     }
 }
 
-async function installTokenSaver() {
-    console.log(`\n${colors.cyan}3. Setting up BDB Token-Saver Context Optimizer...${colors.reset}`);
-    const tokenSaverDir = path.join(scriptDir, 'tools', 'token-saver');
+async function installTokenSaver(toolInfo) {
+    console.log(`\n${colors.cyan}Setting up BDB Token-Saver Context Optimizer...${colors.reset}`);
+    const tokenSaverDir = path.isAbsolute(toolInfo.path) ? toolInfo.path : path.join(scriptDir, toolInfo.path);
     if (!fs.existsSync(tokenSaverDir)) {
         console.warn(` -> Token-Saver payload directory missing.`);
         return;
@@ -187,24 +288,71 @@ async function installTokenSaver() {
     }
 }
 
+async function installGenericTool(targetMcpDir, targetSkillDir, toolInfo) {
+    console.log(`\n${colors.cyan}Setting up ${toolInfo.name}...${colors.reset}`);
+    const srcPath = path.isAbsolute(toolInfo.path) ? toolInfo.path : path.join(scriptDir, toolInfo.path);
+    
+    if (!fs.existsSync(srcPath)) {
+        console.warn(` -> Source path missing: ${srcPath}`);
+        return;
+    }
+
+    const stats = fs.statSync(srcPath);
+    if (stats.isFile()) {
+        const destFile = path.join(targetMcpDir, toolInfo.name);
+        fs.copyFileSync(srcPath, destFile);
+        console.log(` -> Copied ${toolInfo.name} file to ${destFile}`);
+    } else {
+        const isSkill = toolInfo.type === 'skill';
+        const destDir = path.join(isSkill ? targetSkillDir : targetMcpDir, toolInfo.id);
+        copyDirRecursiveSync(srcPath, destDir);
+        console.log(` -> Copied ${toolInfo.name} directory to ${destDir}`);
+    }
+}
+
+async function installGitClone(targetDir, toolInfo) {
+    console.log(`\n${colors.cyan}Cloning ${toolInfo.name}...${colors.reset}`);
+    const destDir = path.join(targetDir, toolInfo.id);
+    if (fs.existsSync(destDir)) {
+        console.warn(` -> Directory already exists, skipping clone: ${destDir}`);
+        return;
+    }
+    try {
+        console.log(` -> git clone ${toolInfo.path}`);
+        execSync(`git clone ${toolInfo.path} ${destDir}`, { stdio: 'inherit' });
+        console.log(`${colors.green} -> Clone completed successfully.${colors.reset}`);
+    } catch (err) {
+        console.warn(` -> Warning: Could not clone repository: ${err.message}`);
+    }
+}
+
 (async () => {
     const targets = detectTargetDirectories();
     const selectedToolIds = await promptToolSelection();
-    const creds = await promptCredentials();
-
+    
+    let creds = { gemini: "", github: "" };
+    if (selectedToolIds.includes('openwiki')) {
+        creds = await promptCredentials();
+    }
+    
     fs.mkdirSync(targets.skillDir, { recursive: true });
     fs.mkdirSync(targets.mcpDir, { recursive: true });
 
-    if (selectedToolIds.includes('memb-mcp')) {
-        await installMembMcp(targets.geminiDir);
-    }
+    for (const id of selectedToolIds) {
+        const toolInfo = allTools.find(t => t.id === id);
+        if (!toolInfo) continue;
 
-    if (selectedToolIds.includes('openwiki')) {
-        await installOpenWiki(targets.skillDir, creds.gemini);
-    }
-
-    if (selectedToolIds.includes('token-saver')) {
-        await installTokenSaver();
+        if (id === 'memb-mcp') {
+            await installMembMcp(targets.mcpDir, toolInfo);
+        } else if (id === 'openwiki') {
+            await installOpenWiki(targets.skillDir, creds.gemini, toolInfo);
+        } else if (id === 'token-saver') {
+            await installTokenSaver(toolInfo);
+        } else if (toolInfo.type === 'git_clone') {
+            await installGitClone(homeDir, toolInfo);
+        } else {
+            await installGenericTool(targets.mcpDir, targets.skillDir, toolInfo);
+        }
     }
 
     console.log(`\n${colors.green}${colors.bold}=========================================================${colors.reset}`);

@@ -27,5 +27,8 @@
     "tools/"
   ],
   "author": "BDB DEV",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "enquirer": "^2.4.1"
+  }
 }
