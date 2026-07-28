@@ -4,6 +4,10 @@
   # 🛠️ BDB DEV Tool Installer
 </div>
 
+🌐 **Language / Sprache / Idioma**: **English** | [ 🇩🇪 Deutsch ](README.de.md) | [ 🇵🇹 Português ](README.pt.md)
+
+---
+
 [![CI](https://github.com/hybridlabor-api/bdb-dev-tool-installer/actions/workflows/ci.yml/badge.svg)](https://github.com/hybridlabor-api/bdb-dev-tool-installer/actions)
 [![NPM Version](https://img.shields.io/npm/v/@hybridlabor-api/bdb-dev-tool-installer.svg)](https://www.npmjs.com/package/@hybridlabor-api/bdb-dev-tool-installer)
 [![runtime](https://img.shields.io/badge/node-20+-blue.svg)](https://github.com/hybridlabor-api/bdb-dev-tool-installer)
