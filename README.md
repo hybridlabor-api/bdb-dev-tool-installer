@@ -4,11 +4,13 @@
   # 🛠️ BDB DEV Tool Installer
 </div>
 
-A modular, cross-platform installer designed to deploy and manage core **BDB DEV Tools** — **BDB Token-Saver**, **memB**, and **BDB OpenWiki** — across macOS, Linux, and Windows environments.
+A modular, cross-platform **General Installer & Updater** designed to centrally deploy, manage, and update all **BDB DEV Tools** (including **BDB Token-Saver**, **memB**, **BDB OpenWiki**, and **Hybridlabor Repositories**) across macOS, Linux, and Windows environments.
+
+Running the installer again over an existing installation will automatically update the tools to their latest available versions.
 
 ---
 
-## 📦 Installed Tools Overview & Technical Specs
+## 📦 Available Tools Overview & Technical Specs
 
 ### 1. ⚡ BDB Token-Saver (Context Window CLI Output Optimizer)
 

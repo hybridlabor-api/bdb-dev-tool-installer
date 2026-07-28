@@ -311,10 +311,16 @@ async function installGenericTool(targetMcpDir, targetSkillDir, toolInfo) {
 }
 
 async function installGitClone(targetDir, toolInfo) {
-    console.log(`\n${colors.cyan}Cloning ${toolInfo.name}...${colors.reset}`);
+    console.log(`\n${colors.cyan}Cloning or Updating ${toolInfo.name}...${colors.reset}`);
     const destDir = path.join(targetDir, toolInfo.id);
     if (fs.existsSync(destDir)) {
-        console.warn(` -> Directory already exists, skipping clone: ${destDir}`);
+        console.log(` -> Directory exists. Pulling latest updates from ${toolInfo.path}...`);
+        try {
+            execSync(`git pull`, { cwd: destDir, stdio: 'inherit' });
+            console.log(`${colors.green} -> Update completed successfully.${colors.reset}`);
+        } catch (err) {
+            console.warn(` -> Warning: Could not update repository: ${err.message}`);
+        }
         return;
     }
     try {
