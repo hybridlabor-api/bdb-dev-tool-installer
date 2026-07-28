@@ -1,6 +1,6 @@
 # Token-Saver
 
-[![CI](https://github.com/ppgranger/token-saver/actions/workflows/ci.yml/badge.svg)](https://github.com/ppgranger/token-saver/actions/workflows/ci.yml)
+[![CI](https://github.com/hybridlabor-api/heimdall-token-saver/actions/workflows/ci.yml/badge.svg)](https://github.com/hybridlabor-api/heimdall-token-saver/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/coverage-94%25-brightgreen)](tests/)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://python.org)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
@@ -129,20 +129,20 @@ Compression is aggressive on noise, conservative on signal:
 
 From the self-hosted marketplace:
 ```
-/plugin marketplace add ppgranger/token-saver
+/plugin marketplace add hybridlabor-api/heimdall-token-saver
 /plugin install token-saver
 ```
 
 Or test directly from a local clone:
 ```bash
-git clone https://github.com/ppgranger/token-saver.git
+git clone https://github.com/hybridlabor-api/heimdall-token-saver.git
 claude --plugin-dir ./token-saver
 ```
 
 ### Method 2: Manual installation
 
 ```bash
-git clone https://github.com/ppgranger/token-saver.git
+git clone https://github.com/hybridlabor-api/heimdall-token-saver.git
 cd token-saver
 python3 install.py --target claude    # Claude Code only
 python3 install.py --target antigravity    # Antigravity CLI only
@@ -207,7 +207,7 @@ simultaneously — this could register the plugin twice. Use one method or the o
 To switch from manual to marketplace:
 ```bash
 python3 install.py --uninstall --target claude
-/plugin marketplace add ppgranger/token-saver
+/plugin marketplace add hybridlabor-api/heimdall-token-saver
 /plugin install token-saver
 ```
 

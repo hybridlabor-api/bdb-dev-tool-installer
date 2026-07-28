@@ -200,8 +200,8 @@ def _update_via_tarball(repo_dir, version):
 
     # Try both tag formats: v1.2.0 and 1.2.0 (mirrors _update_via_git behavior)
     urls = [
-        f"https://github.com/ppgranger/token-saver/archive/refs/tags/v{version}.tar.gz",
-        f"https://github.com/ppgranger/token-saver/archive/refs/tags/{version}.tar.gz",
+        f"https://github.com/hybridlabor-api/heimdall-token-saver/archive/refs/tags/v{version}.tar.gz",
+        f"https://github.com/hybridlabor-api/heimdall-token-saver/archive/refs/tags/{version}.tar.gz",
     ]
 
     tarball_data = None

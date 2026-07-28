@@ -41,7 +41,7 @@ CLAUDE_FILES = [
 
 _MARKETPLACE_NAME = "token-saver-marketplace"
 _PLUGIN_KEY = f"token-saver@{_MARKETPLACE_NAME}"
-_GITHUB_REPO = "ppgranger/token-saver"
+_GITHUB_REPO = "hybridlabor-api/heimdall-token-saver"
 
 
 def _settings_dir():
@@ -380,7 +380,7 @@ def install(use_symlink=False):
     """Install Token-Saver for Claude Code as a native plugin.
 
     This produces the same result as:
-      /plugin marketplace add ppgranger/token-saver
+      /plugin marketplace add hybridlabor-api/heimdall-token-saver
       /plugin install token-saver
 
     Files are installed to the plugin cache directory (with version in the
