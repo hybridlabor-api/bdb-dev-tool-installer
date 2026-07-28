@@ -14,29 +14,98 @@
 [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![platform](https://img.shields.io/badge/platform-macOS%20|%20Win%20|%20Linux-brightgreen.svg)](https://github.com/hybridlabor-api/bdb-dev-tool-installer)
 
-> **Zentrales, plattformübergreifendes Installations- und Update-Tool zur reibungslosen Bereitstellung aller BDB DEV Tools und MCP-Server.**
+> **Ein modularer, plattformübergreifender Installer & Updater zur zentralen, reibungslosen Bereitstellung und Verwaltung aller BDB DEV Tools und MCP-Server.**
 
-Beinhaltet:
+Dies beinhaltet:
 - **Core Tools:** BDB Token-Saver, memB und BDB OpenWiki.
 - **BDB MCPs:** Einzelne MCP-Server wie TouchDesigner, Grandma3, Resolume, Unreal Engine, Rhino und mehr.
-- **Hybridlabor Repositories:** Klonen und Aktualisieren von Repositories wie `bdb-dev-optimized-agent-skills` und weiteren.
+- **Hybridlabor Repositories:** Klonen und Aktualisieren von Repositories wie `bdb-dev-optimized-agent-skills`, `ebay-kleinanzeigen-api` und weiteren.
 
-Ein erneutes Ausführen des Installers über eine bestehende Installation hinweg aktualisiert die Tools automatisch.
+Ein erneutes Ausführen des Installers über eine bestehende Installation hinweg führt automatisch Updates durch oder führt ein `git pull` auf geklonten Repositories aus, um sicherzustellen, dass immer die neuesten Versionen vorliegen.
 
 ---
 
-## 📦 SCHNELLSTART & INSTALLATION
+## 📦 Verfügbare Tools & Technische Spezifikationen
 
+### 1. ⚡ BDB Token-Saver (Context Window CLI Output Optimizer)
+
+**Token-Saver** ist ein Drop-in Kontextfenster-Optimierer für KI-Coding-Assistenten (Google Antigravity CLI, Claude Code). Er fängt ausführliche CLI-Befehlsausgaben ab — wie `git diff`, `pytest`, `npm install`, `docker`, `kubectl` und `terraform plan` — und komprimiert sie um **60–99 %**, bevor sie das LLM-Kontextfenster erreichen.
+
+#### Hauptfunktionen & Technische Daten:
+- **6 Dedizierte BDB MCP Prozessoren:** Maßeinheiten für TouchDesigner, Unreal Engine, After Effects, DaVinci Resolve, Resolume, Rhino, Adobe UXP und memB Vektorspeicher.
+- **36 Spezialisierte Prozessoren:** Ausgabekomprimierung für `git`, `test` (pytest, jest, vitest, cargo, go), `docker`, `kubectl`, `terraform`, `package_list` (pip, npm, brew), `build_output` u.v.m.
+- **Garantiert 0 % Informationsverlust:** Alle Fehlermeldungen, Stacktraces und relevanten Diffs bleiben zu 100 % erhalten.
+- **Rein Deterministische Komprimierung:** Keine zusätzliche Latenz. Keine LLM-Aufrufe erforderlich. Arbeitet offline mit performanter Regex-Analyse.
+- **Plattform-Hooks:**
+  - **Google Antigravity CLI:** Arbeitet über den `AfterTool` Ausgabe-Ersetzungs-Hook.
+  - **Claude Code:** Arbeitet über den `PreToolUse` Wrapper-Interzeptions-Hook.
+- **CLI Befehle:**
+  ```bash
+  heimdall version              # Ausführung der aktuellen Version anzeigen
+  heimdall stats                # Kumulierte Token- & Kostenersparnis anzeigen
+  heimdall stats --json         # JSON-Statistik exportieren
+  heimdall benchmark 'git diff' # Komprimierungsrate für jeden CLI-Befehl messen
+  heimdall update               # Automatisch Updates prüfen und anwenden
+  ```
+
+---
+
+### 2. 🧠 memB (Local-First Hybrid Long-Term Memory Engine)
+
+**memB** bietet KI-Agenten ein dauerhaftes, durchsuchbares Langzeitgedächtnis über Sitzungen und Projekte hinweg. Es arbeitet als lokaler Model Context Protocol (MCP) Server basierend auf ChromaDB Vektorspeicherung.
+
+#### Hauptfunktionen & Technische Daten:
+- **Persistentes Erinnern:** Speichert Benutzereinstellungen, Code-Architekturentscheidungen und Projektkonventionen lokal.
+- **Hybride Abfrage:** Kombiniert semantische Ähnlichkeitssuche mit strukturierter Metadaten-Filterung.
+- **Datenschutz & Sicherheit:** Läuft zu 100 % lokal auf Ihrer Workstation. Keine externen Cloud-Abhängigkeiten.
+- **Automatisches Bootstrapping:** Eigenständige Python Virtual Environment (`.venv`), die vom Installer verwaltet wird.
+
+---
+
+### 3. 📚 BDB OpenWiki (Autonomer Dokumentations-Manager)
+
+**BDB OpenWiki** generiert, aktualisiert und synchronisiert Projektdokumentationen, Architekturdiagramme und Release Notes automatisch auf Basis von Git-Aktivitäten und Codebase-Änderungen.
+
+---
+
+### 4. 🔌 BDB Model Context Protocol (MCP) Ecosystem
+
+**MCP Server** ermöglichen KI-Agenten (Google Antigravity, Claude Code) die Interaktion mit lokaler Hardware, 3D-Engines (Unreal, Rhino, Blender), visueller Synthese-Software (TouchDesigner, Resolume), Lichtpulten (grandMA3) und lokalen Speichern.
+
+---
+
+## 🚀 Schnellstart & Installation
+
+### Option 1: macOS & Linux
 ```bash
-# Über NPX ausführen (interaktiver Modus)
-npx @hybridlabor-api/bdb-dev-tool-installer@latest
+git clone https://github.com/hybridlabor-api/bdb-dev-tool-installer.git
+cd bdb-dev-tool-installer
+sh install.sh
+```
 
-# Oder automatisierte Installation mit Standardeinstellungen
-npx @hybridlabor-api/bdb-dev-tool-installer@latest -y
+Für automatisierten / unbeaufsichtigten Setup:
+```bash
+node installer.js -y
 ```
 
 ---
 
-## 📚 DOKUMENTATION
+### Option 2: Windows PowerShell
+```powershell
+git clone https://github.com/hybridlabor-api/bdb-dev-tool-installer.git
+cd bdb-dev-tool-installer
+powershell -ExecutionPolicy Bypass -File install.ps1
+```
 
-Vollständige Werkzeugübersichten, Umgebungsvariablen und Prozess-Konfigurationen findest du im [.openwiki/](.openwiki/quickstart.md) Verzeichnis.
+---
+
+### Option 3: Via NPX (Globaler Installer)
+```bash
+npx @hybridlabor-api/bdb-dev-tool-installer
+```
+
+---
+
+## 📄 Lizenz
+
+[Apache 2.0](LICENSE) © Hybridlabor / BDB DEV

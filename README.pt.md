@@ -14,29 +14,75 @@
 [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![platform](https://img.shields.io/badge/platform-macOS%20|%20Win%20|%20Linux-brightgreen.svg)](https://github.com/hybridlabor-api/bdb-dev-tool-installer)
 
-> **Instalador e atualizador modular e multiplataforma para implantar e gerenciar centralidamente todas as ferramentas BDB DEV e servidores MCP.**
+> **Um instalador e atualizador modular e multiplataforma projetado para implantar, gerenciar e atualizar centralizadamente todas as ferramentas BDB DEV e servidores MCP sem atrito.**
 
-Inclui:
+Isso inclui:
 - **Ferramentas Principais:** BDB Token-Saver, memB e BDB OpenWiki.
-- **BDB MCPs:** Servidores MCP para TouchDesigner, Grandma3, Resolume, Unreal Engine, Rhino e muito mais.
-- **Repositórios Hybridlabor:** Clonagem e atualização automática de repositórios.
+- **BDB MCPs:** Servidores MCP individuais para TouchDesigner, Grandma3, Resolume, Unreal Engine, Rhino e muito mais.
+- **Repositórios Hybridlabor:** Clonagem e atualização completa de repositórios como `bdb-dev-optimized-agent-skills`, `ebay-kleinanzeigen-api` e outros.
 
-Executar o instalador novamente em uma instalação existente atualizará automaticamente todas as ferramentas.
+Executar o instalador novamente em uma instalação existente atualizará automaticamente as ferramentas ou executará um `git pull` nos repositórios clonados.
 
 ---
 
-## 📦 INSTALAÇÃO RÁPIDA
+## 📦 Visão Geral das Ferramentas & Especificações Técnicas
 
+### 1. ⚡ BDB Token-Saver (Otimizador de Saída CLI para Janela de Contexto)
+
+**Token-Saver** é um otimizador de janela de contexto drop-in para assistentes de código de IA (Google Antigravity CLI, Claude Code). Ele intercepta saídas de comandos CLI — como `git diff`, `pytest`, `npm install`, `docker`, `kubectl` e `terraform plan` — comprimindo-as em **60–99%** antes que alcancem o LLM.
+
+---
+
+### 2. 🧠 memB (Motor de Memória de Longo Prazo Híbrido Local-First)
+
+**memB** fornece aos agentes de IA uma memória de longo prazo persistente e pesquisável em sessões e projetos. Ele opera como um servidor MCP local baseado em armazenamento vetorial ChromaDB.
+
+---
+
+### 3. 📚 BDB OpenWiki (Gerenciador de Documentação Autônomo)
+
+**BDB OpenWiki** gera, atualiza e sincroniza automaticamente a documentação do projeto, diagramas de arquitetura e notas de lançamento com base nas atividades do Git.
+
+---
+
+### 4. 🔌 Ecossistema BDB Model Context Protocol (MCP)
+
+Os **Servidores MCP** permitem que os agentes de IA interajam com hardware local, motores 3D (Unreal, Rhino, Blender), softwares de síntese visual (TouchDesigner, Resolume), consoles de iluminação (grandMA3) e memória local.
+
+---
+
+## 🚀 Início Rápido & Instalação
+
+### Opção 1: macOS & Linux
 ```bash
-# Executar via NPX (modo interativo)
-npx @hybridlabor-api/bdb-dev-tool-installer@latest
+git clone https://github.com/hybridlabor-api/bdb-dev-tool-installer.git
+cd bdb-dev-tool-installer
+sh install.sh
+```
 
-# Ou instalação automática com configurações padrão
-npx @hybridlabor-api/bdb-dev-tool-installer@latest -y
+Para configuração automatizada:
+```bash
+node installer.js -y
 ```
 
 ---
 
-## 📚 DOCUMENTAÇÃO
+### Opção 2: Windows PowerShell
+```powershell
+git clone https://github.com/hybridlabor-api/bdb-dev-tool-installer.git
+cd bdb-dev-tool-installer
+powershell -ExecutionPolicy Bypass -File install.ps1
+```
 
-Para visão geral detalhada das ferramentas e opções de configuração, consulte o diretório [.openwiki/](.openwiki/quickstart.md).
+---
+
+### Opção 3: Via NPX (Instalador Global)
+```bash
+npx @hybridlabor-api/bdb-dev-tool-installer
+```
+
+---
+
+## 📄 Licenciamento
+
+[Apache 2.0](LICENSE) © Hybridlabor / BDB DEV
