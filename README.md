@@ -4,9 +4,14 @@
   # 🛠️ BDB DEV Tool Installer
 </div>
 
-A modular, cross-platform **General Installer & Updater** designed to centrally deploy, manage, and update all **BDB DEV Tools** (including **BDB Token-Saver**, **memB**, **BDB OpenWiki**, and **Hybridlabor Repositories**) across macOS, Linux, and Windows environments.
+A modular, cross-platform **General Installer & Updater** designed to centrally deploy, manage, and update all **BDB DEV Tools**. 
 
-Running the installer again over an existing installation will automatically update the tools to their latest available versions.
+This includes:
+- **Core Tools:** BDB Token-Saver, memB, and BDB OpenWiki.
+- **BDB MCPs:** Individual MCP servers like TouchDesigner, Grandma3, Resolume, Unreal Engine, Rhino, and more.
+- **Hybridlabor Repositories:** Full project cloning and updating for repositories like `bdb-dev-optimized-agent-skills`, `ebay-kleinanzeigen-api`, and others.
+
+Running the installer again over an existing installation will automatically update the tools or perform a `git pull` on cloned repositories to ensure you have the latest available versions.
 
 ---
 
