@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const mcpsDir = '/Users/timrennings/bdb-dev-optimized-agent-skills/mcps';
+const mcpsDir = path.join(__dirname, '..', 'bdb-dev-optimized-agent-skills', 'mcps');
 let bdbMcps = [];
 if (fs.existsSync(mcpsDir)) {
   const items = fs.readdirSync(mcpsDir, { withFileTypes: true });
@@ -15,7 +15,7 @@ if (fs.existsSync(mcpsDir)) {
       name: name,
       description: `BDB MCP for ${name}`,
       type: "mcp",
-      path: path.join(mcpsDir, name),
+      path: `../bdb-dev-optimized-agent-skills/mcps/${name}`,
       default: false
     });
   }
@@ -54,4 +54,4 @@ const registry = {
   }
 };
 
-fs.writeFileSync('/Users/timrennings/bdb-dev-tool-installer/registry.json', JSON.stringify(registry, null, 2));
+fs.writeFileSync(path.join(__dirname, 'registry.json'), JSON.stringify(registry, null, 2));

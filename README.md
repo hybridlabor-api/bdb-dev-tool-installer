@@ -4,7 +4,13 @@
   # 🛠️ BDB DEV Tool Installer
 </div>
 
-A modular, cross-platform **General Installer & Updater** designed to centrally deploy, manage, and update all **BDB DEV Tools**. 
+[![CI](https://github.com/hybridlabor-api/bdb-dev-tool-installer/actions/workflows/ci.yml/badge.svg)](https://github.com/hybridlabor-api/bdb-dev-tool-installer/actions)
+[![NPM Version](https://img.shields.io/npm/v/@hybridlabor-api/bdb-dev-tool-installer.svg)](https://www.npmjs.com/package/@hybridlabor-api/bdb-dev-tool-installer)
+[![runtime](https://img.shields.io/badge/node-20+-blue.svg)](https://github.com/hybridlabor-api/bdb-dev-tool-installer)
+[![license](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE)
+[![platform](https://img.shields.io/badge/platform-macOS%20|%20Win%20|%20Linux-brightgreen.svg)](https://github.com/hybridlabor-api/bdb-dev-tool-installer)
+
+> **A modular, cross-platform general installer and updater designed to centrally deploy, manage, and update all BDB DEV Tools and MCP servers with zero friction.** 
 
 This includes:
 - **Core Tools:** BDB Token-Saver, memB, and BDB OpenWiki.
