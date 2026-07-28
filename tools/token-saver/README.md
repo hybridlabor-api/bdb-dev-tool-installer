@@ -35,7 +35,7 @@ Compatible with **Claude Code** and **Antigravity CLI**. Zero added latency. No 
 | `docker compose logs` (4 services) | 3,200 tokens | 480 tokens | **85%** |
 | `helm template` (12 manifests) | 2,100 tokens | 210 tokens | **90%** |
 
-> Run `token-saver benchmark <command>` to measure savings on your own workloads.
+> Run `heimdall benchmark <command>` to measure savings on your own workloads.
 
 ## Why
 
@@ -176,12 +176,12 @@ python3 install.py --uninstall --keep-data  # Keep stats DB
 
 **Plugin install**: Claude Code handles updates automatically when you refresh the marketplace.
 
-**Manual install**: Run `token-saver update` from anywhere, or:
+**Manual install**: Run `heimdall update` from anywhere, or:
 ```bash
 cd token-saver && git pull && python3 install.py --target claude
 ```
 
-**GitHub releases**: Both methods check for new releases via the GitHub API. The `token-saver update` CLI command and the SessionStart hook notification work regardless of install method.
+**GitHub releases**: Both methods check for new releases via the GitHub API. The `heimdall update` CLI command and the SessionStart hook notification work regardless of install method.
 
 ### Upgrading from v1.x to v2.0
 
@@ -197,7 +197,7 @@ The installer automatically:
 - Installs to the plugin cache as a native Claude Code plugin
 - Registers in `enabledPlugins` and `installed_plugins.json`
 
-You can also run `token-saver update` from anywhere to auto-upgrade.
+You can also run `heimdall update` from anywhere to auto-upgrade.
 
 ### Avoid dual installation
 
@@ -227,13 +227,13 @@ python3 install.py --uninstall --target claude
 After installation, the `token-saver` command is available:
 
 ```bash
-token-saver version              # Print current version
-token-saver stats                # Show savings statistics
-token-saver stats --json         # JSON output for scripting
-token-saver update               # Check for and apply updates
-token-saver benchmark 'git diff' # Measure compression on a command
-token-saver benchmark 'pytest' --format json  # JSON output
-token-saver benchmark 'git log' --dry-run     # Show processor without executing
+heimdall version              # Print current version
+heimdall stats                # Show savings statistics
+heimdall stats --json         # JSON output for scripting
+heimdall update               # Check for and apply updates
+heimdall benchmark 'git diff' # Measure compression on a command
+heimdall benchmark 'pytest' --format json  # JSON output
+heimdall benchmark 'git log' --dry-run     # Show processor without executing
 ```
 
 If `~/.local/bin` is not in your PATH, the installer prints instructions.
@@ -407,20 +407,20 @@ Token-Saver records every compression in a local SQLite database:
 On every session start, the `SessionStart` hook displays a summary:
 
 ```
-[token-saver] Lifetime: 342 cmds, 307.2k tokens saved (67.3%) | Session: 5 cmds, 11.3k tokens saved (72.1%)
+[heimdall] Lifetime: 342 cmds, 307.2k tokens saved (67.3%) | Session: 5 cmds, 11.3k tokens saved (72.1%)
 ```
 
 If a newer version is available, the notification is appended:
 
 ```
-[token-saver] Lifetime: 342 cmds, 307.2k tokens saved (67.3%) | Update available: v1.0.1 -> v1.1.0 -- Run: token-saver update
+[heimdall] Lifetime: 342 cmds, 307.2k tokens saved (67.3%) | Update available: v1.0.1 -> v1.1.0 -- Run: heimdall update
 ```
 
 ### Manual Stats
 
 ```bash
-token-saver stats
-token-saver stats --json
+heimdall stats
+heimdall stats --json
 ```
 
 ```
@@ -610,10 +610,10 @@ python3 scripts/wrap.py --dry-run 'git status'
 export TOKEN_SAVER_DEBUG=true
 
 # Check stats
-token-saver stats
+heimdall stats
 
 # Check version
-token-saver version
+heimdall version
 ```
 
 ## Known Limitations

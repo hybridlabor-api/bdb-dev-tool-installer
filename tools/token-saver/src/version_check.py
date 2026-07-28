@@ -100,7 +100,7 @@ def check_for_update(fetch_fn=None, cache_ttl=_CACHE_TTL_SECONDS):
                 if cache_ttl > 0:
                     _write_cache(latest)
         if _parse_version(latest) > _parse_version(__version__):
-            return f"Update available: v{__version__} -> v{latest} -- Run: token-saver update"
+            return f"Update available: v{__version__} -> v{latest} -- Run: heimdall update"
     except Exception:
         return None
 

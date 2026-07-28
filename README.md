@@ -30,11 +30,11 @@ Running the installer again over an existing installation will automatically upd
   - **Claude Code:** Operates via `PreToolUse` wrapper interception hook.
 - **CLI Commands:**
   ```bash
-  token-saver version              # Print version (v2.6.3)
-  token-saver stats                # Display cumulative token & bill savings
-  token-saver stats --json         # Export JSON statistics for reporting
-  token-saver benchmark 'git diff' # Measure compression ratio on any CLI command
-  token-saver update               # Check and apply updates automatically
+  heimdall version              # Print version (v2.6.3)
+  heimdall stats                # Display cumulative token & bill savings
+  heimdall stats --json         # Export JSON statistics for reporting
+  heimdall benchmark 'git diff' # Measure compression ratio on any CLI command
+  heimdall update               # Check and apply updates automatically
   ```
 
 ---

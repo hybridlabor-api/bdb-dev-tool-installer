@@ -107,7 +107,7 @@ def _hook_belongs_to_us(hook_entry):
 
 
 def _read_version():
-    """Read the current token-saver version from src/__init__.py."""
+    """Read the current heimdall version from src/__init__.py."""
     from .common import _read_version as _rv  # noqa: PLC0415
 
     return _rv()
