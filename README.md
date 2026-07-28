@@ -62,6 +62,17 @@ Running the installer again over an existing installation will automatically upd
 
 ---
 
+### 4. 🔌 BDB Model Context Protocol (MCP) Ecosystem
+
+**MCP Servers** allow AI agents (Google Antigravity, Claude Code) to interact with local hardware, 3D engines (Unreal, Rhino, Blender), visual synthesis software (TouchDesigner, Resolume), lighting consoles (grandMA3), and local memory stores.
+
+#### Quick Highlights:
+- **20+ Pre-Configured MCPs:** Specialized adapters for TouchDesigner, Unreal Engine, grandMA3, Resolume, DaVinci Resolve, Rhino, Blender, and OS automation.
+- **Automated Registration:** The installer configures `~/.gemini/antigravity-cli/mcp_config.json` automatically upon installation.
+- **Deep Architecture Guide:** For full technical details, transport specifications, and the complete catalog of servers, see the [MCP Architecture & Server Directory](mcp_readme.md).
+
+---
+
 ## 🚀 Quick Start & Installation
 
 ### Option 1: macOS & Linux
