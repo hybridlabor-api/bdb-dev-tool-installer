@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo.png" alt="Heimdall Logo" width="400"/>
+  <img src="assets/readme_header_banner.jpg" alt="Heimdall Banner" width="100%"/>
 
   # 🛠️ BDB DEV Tool Installer
 </div>
