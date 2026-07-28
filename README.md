@@ -22,6 +22,7 @@ Running the installer again over an existing installation will automatically upd
 **Token-Saver** is a drop-in context window optimizer for AI coding assistants (Google Antigravity CLI, Claude Code). It intercepts verbose CLI command outputs—such as `git diff`, `pytest`, `npm install`, `docker`, `kubectl`, and `terraform plan`—compressing them by **60–99%** before they reach the LLM context window.
 
 #### Key Features & Technical Specifications:
+- **6 Dedicated BDB MCP Processors:** Tailored compactors for TouchDesigner, Unreal Engine, After Effects, DaVinci Resolve, Resolume, Rhino, Adobe UXP, and memB vector memory.
 - **36 Specialized Processors:** Tailored output compactors for `git`, `test` (pytest, jest, vitest, cargo, go), `docker`, `kubectl`, `terraform`, `package_list` (pip, npm, brew), `build_output`, and more.
 - **Zero Information Loss:** All error messages, failure stack traces, warnings, and actionable diffs are 100% preserved.
 - **Pure Deterministic Compression:** Zero added latency. No LLM calls required. Operates offline using high-performance regex parsing.
@@ -44,6 +45,7 @@ Running the installer again over an existing installation will automatically upd
 **memB** provides AI agents with persistent, searchable long-term memory across sessions and projects. It operates as a local Model Context Protocol (MCP) server backed by ChromaDB vector storage.
 
 #### Key Features & Technical Specifications:
+- **6 Dedicated BDB MCP Processors:** Tailored compactors for TouchDesigner, Unreal Engine, After Effects, DaVinci Resolve, Resolume, Rhino, Adobe UXP, and memB vector memory.
 - **Persistent Recall:** Stores user preferences, code architecture choices, and project conventions locally.
 - **Hybrid Retrieval:** Combines semantic vector similarity search with structured metadata filtering.
 - **Privacy & Security:** Runs 100% locally on your workstation. No external memory cloud dependencies.
@@ -56,6 +58,7 @@ Running the installer again over an existing installation will automatically upd
 **BDB OpenWiki** automatically generates, updates, and synchronizes project documentation, architecture diagrams, and release notes based on git activity and codebase changes.
 
 #### Key Features & Technical Specifications:
+- **6 Dedicated BDB MCP Processors:** Tailored compactors for TouchDesigner, Unreal Engine, After Effects, DaVinci Resolve, Resolume, Rhino, Adobe UXP, and memB vector memory.
 - **Gemini 2.5/3.0 Powered:** Connects via `GEMINI_API_KEY` for intelligent change summarization.
 - **Background Daemon:** Runs as an OS daemon (`systemd` on Linux, `launchd` on macOS, Scheduled Task on Windows) for continuous documentation updates.
 - **One-Shot & Live Modes:** Can be triggered manually or run as an automated background process.
