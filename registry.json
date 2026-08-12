@@ -188,6 +188,90 @@
         "path": "../bdb-dev-optimized-agent-skills/mcps/windows-computer-use-mcp",
         "default": false
       }
+    ],
+    "BDB Core Workspaces & Extensions": [
+      {
+        "id": "bdb-dev-creator-extension",
+        "name": "BDB Dev Creator Extension",
+        "description": "Early Access / Extension placeholder",
+        "type": "suite",
+        "path": "https://github.com/hybridlabor-api/bdb-dev-creator-extension.git",
+        "default": false,
+        "status": "beta"
+      },
+      {
+        "id": "bdb-os-agent-workspace",
+        "name": "BDB OS Agent Workspace",
+        "description": "Early Access / Extension placeholder",
+        "type": "workspace",
+        "path": "https://github.com/hybridlabor-api/bdb-os-agent-workspace.git",
+        "default": false,
+        "status": "beta"
+      }
+    ],
+    "BDB Agent Skills": [
+      {
+        "id": "bdb-dev-optimized-agent-skills",
+        "name": "BDB Dev Optimized Agent Skills",
+        "description": "Core skills for BDB agents",
+        "type": "core_skills",
+        "path": "https://github.com/hybridlabor-api/bdb-dev-optimized-agent-skills.git",
+        "default": true
+      },
+      {
+        "id": "bdb-dev-optimized-agent-skills-basic",
+        "name": "BDB Dev Optimized Agent Skills (Basic)",
+        "description": "Basic core skills for BDB agents",
+        "type": "core_skills",
+        "path": "https://github.com/hybridlabor-api/bdb-dev-optimized-agent-skills-basic.git",
+        "default": false
+      },
+      {
+        "id": "bdb-dev-optimized-antigravity-skills",
+        "name": "BDB Dev Optimized Antigravity Skills",
+        "description": "Antigravity skills for BDB agents",
+        "type": "core_skills",
+        "path": "https://github.com/hybridlabor-api/bdb-dev-optimized-antigravity-skills.git",
+        "default": true
+      }
+    ],
+    "Spezialisierte Agenten & APIs": [
+      {
+        "id": "invoice-scrape-agent",
+        "name": "Invoice Scrape Agent",
+        "description": "Spezialisierter Agent fürs Scraping von Invoices",
+        "type": "agent",
+        "path": "https://github.com/hybridlabor-api/invoice-scrape-agent.git",
+        "default": false
+      },
+      {
+        "id": "ebay-kleinanzeigen-api",
+        "name": "Ebay Kleinanzeigen API",
+        "description": "API für Ebay Kleinanzeigen",
+        "type": "api",
+        "path": "https://github.com/hybridlabor-api/ebay-kleinanzeigen-api.git",
+        "default": false
+      }
+    ],
+    "UI & Tools": [
+      {
+        "id": "VisualSelect_By_BDB",
+        "name": "VisualSelect By BDB",
+        "description": "UI & Tools by BDB",
+        "type": "tool",
+        "path": "https://github.com/hybridlabor-api/VisualSelect_By_BDB.git",
+        "default": false
+      }
+    ],
+    "Private & Network Routing": [
+      {
+        "id": "bdb-edge-routing",
+        "name": "BDB Edge Routing",
+        "description": "Private Repo. Requires active GitHub SSH-Key or CLI-Auth (gh auth status)",
+        "type": "config",
+        "path": "git@github.com:hybridlabor-api/bdb-edge-routing.git",
+        "default": false
+      }
     ]
   }
 }

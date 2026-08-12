@@ -98,113 +98,71 @@ async function promptToolSelection() {
 
     let selectedIds = [];
 
-    // Core Tools
-    if (registry.categories && registry.categories['Core Tools']) {
-        const coreTools = registry.categories['Core Tools'];
-        const corePrompt = new MultiSelect({
-            name: 'core',
-            message: 'Select Core Tools to install (Space to toggle, Enter to confirm):',
-            choices: coreTools.map(tool => ({
-                name: tool.id,
-                message: tool.name,
-                hint: tool.description,
-                initial: tool.default
-            }))
-        });
-        
-        try {
-            const coreAnswers = await corePrompt.run();
-            selectedIds = selectedIds.concat(coreAnswers);
-        } catch (err) {
-            console.log('\nInstallation cancelled.');
-            process.exit(0);
-        }
-    }
+    if (registry.categories) {
+        for (const [catName, tools] of Object.entries(registry.categories)) {
+            if (catName === 'Core Tools') {
+                const corePrompt = new MultiSelect({
+                    name: 'core',
+                    message: 'Select Core Tools to install (Space to toggle, Enter to confirm):',
+                    choices: tools.map(tool => ({
+                        name: tool.id,
+                        message: tool.name + (tool.status === 'beta' ? ' (Beta/Early Access)' : ''),
+                        hint: tool.description,
+                        initial: tool.default
+                    }))
+                });
+                
+                try {
+                    const coreAnswers = await corePrompt.run();
+                    selectedIds = selectedIds.concat(coreAnswers);
+                } catch (err) {
+                    console.log('\nInstallation cancelled.');
+                    process.exit(0);
+                }
+            } else {
+                let wantCat = false;
+                try {
+                    const wantCatPrompt = new Confirm({
+                        name: 'wantCat',
+                        message: `Do you want to install any tools from: ${catName}?`
+                    });
+                    wantCat = await wantCatPrompt.run();
+                } catch (err) {
+                    console.log('\nInstallation cancelled.');
+                    process.exit(0);
+                }
 
-    // BDB MCPs
-    if (registry.categories && registry.categories['BDB MCPs']) {
-        let wantMcps = false;
-        try {
-            const wantMcpsPrompt = new Confirm({
-                name: 'wantMcps',
-                message: 'Do you want to install any BDB MCPs?'
-            });
-            wantMcps = await wantMcpsPrompt.run();
-        } catch (err) {
-            console.log('\nInstallation cancelled.');
-            process.exit(0);
-        }
-
-        if (wantMcps) {
-            const mcpTools = registry.categories['BDB MCPs'];
-            const mcpPrompt = new MultiSelect({
-                name: 'mcps',
-                message: 'Select BDB MCPs to install (Space to toggle, Enter to confirm):',
-                limit: 15,
-                choices: mcpTools.map(tool => ({
-                    name: tool.id,
-                    message: tool.name,
-                    hint: tool.description,
-                    initial: tool.default
-                }))
-            });
-            
-            try {
-                const mcpAnswers = await mcpPrompt.run();
-                selectedIds = selectedIds.concat(mcpAnswers);
-            } catch (err) {
-                console.log('\nInstallation cancelled.');
-                process.exit(0);
+                if (wantCat) {
+                    const prompt = new MultiSelect({
+                        name: 'catTools',
+                        message: `Select tools from ${catName} (Space to toggle, Enter to confirm):`,
+                        limit: 15,
+                        choices: tools.map(tool => ({
+                            name: tool.id,
+                            message: tool.name + (tool.status === 'beta' ? ' (Beta/Early Access)' : ''),
+                            hint: tool.description,
+                            initial: tool.default
+                        }))
+                    });
+                    
+                    try {
+                        const answers = await prompt.run();
+                        selectedIds = selectedIds.concat(answers);
+                    } catch (err) {
+                        console.log('\nInstallation cancelled.');
+                        process.exit(0);
+                    }
+                }
             }
         }
-    }
-
-    // Hybridlabor API Repositories
-    if (registry.categories && registry.categories['Hybridlabor API Repositories']) {
-        let wantRepos = false;
-        try {
-            const wantReposPrompt = new Confirm({
-                name: 'wantRepos',
-                message: 'Do you want to clone any Hybridlabor API Repositories?'
-            });
-            wantRepos = await wantReposPrompt.run();
-        } catch (err) {
-            console.log('\nInstallation cancelled.');
-            process.exit(0);
-        }
-
-        if (wantRepos) {
-            const repoTools = registry.categories['Hybridlabor API Repositories'];
-            const repoPrompt = new MultiSelect({
-                name: 'repos',
-                message: 'Select repositories to clone (Space to toggle, Enter to confirm):',
-                limit: 15,
-                choices: repoTools.map(tool => ({
-                    name: tool.id,
-                    message: tool.name,
-                    hint: tool.description,
-                    initial: tool.default
-                }))
-            });
-            
-            try {
-                const repoAnswers = await repoPrompt.run();
-                selectedIds = selectedIds.concat(repoAnswers);
-            } catch (err) {
-                console.log('\nInstallation cancelled.');
-                process.exit(0);
-            }
-        }
-    }
-
-    // Fallback if no categories
-    if (!registry.categories && registry.tools) {
+    } else if (registry.tools) {
+        // Fallback if no categories
         const fallbackPrompt = new MultiSelect({
             name: 'tools',
             message: 'Select tools to install:',
             choices: registry.tools.map(tool => ({
                 name: tool.id,
-                message: tool.name,
+                message: tool.name + (tool.status === 'beta' ? ' (Beta/Early Access)' : ''),
                 hint: tool.description,
                 initial: tool.default
             }))
@@ -380,13 +338,26 @@ async function installGitClone(targetDir, toolInfo) {
         const toolInfo = allTools.find(t => t.id === id);
         if (!toolInfo) continue;
 
+        const gitCloneTypes = ['git_clone', 'suite', 'workspace', 'config', 'core_skills', 'agent', 'api', 'tool'];
+
         if (id === 'memb-mcp') {
             await installMembMcp(targets.mcpDir, toolInfo);
         } else if (id === 'openwiki') {
             await installOpenWiki(targets.skillDir, creds.gemini, toolInfo);
         } else if (id === 'token-saver') {
             await installTokenSaver(toolInfo);
-        } else if (toolInfo.type === 'git_clone') {
+        } else if (gitCloneTypes.includes(toolInfo.type)) {
+            if (toolInfo.type === 'config' && id === 'bdb-edge-routing') {
+                console.log(`\n${colors.yellow}Checking GitHub Authentication for private repo bdb-edge-routing...${colors.reset}`);
+                try {
+                    execSync('gh auth status', { stdio: 'ignore' });
+                } catch (err) {
+                    console.warn(`\n${colors.magenta}${colors.bold}⚠️  GitHub Auth missing for bdb-edge-routing!${colors.reset}`);
+                    console.log(`${colors.yellow}Please login with 'gh auth login' or ensure your SSH keys are set up.${colors.reset}`);
+                    console.log(`${colors.yellow}Skipping bdb-edge-routing installation.${colors.reset}\n`);
+                    continue;
+                }
+            }
             await installGitClone(homeDir, toolInfo);
         } else {
             await installGenericTool(targets.mcpDir, targets.skillDir, toolInfo);
