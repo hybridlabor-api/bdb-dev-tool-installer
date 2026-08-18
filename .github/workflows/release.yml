@@ -22,10 +22,25 @@ jobs:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Check if version already published
+        id: check_version
+        run: |
+          LOCAL_VER=$(node -p "require('./package.json').version")
+          REMOTE_VER=$(npm view $(node -p "require('./package.json').name") version 2>/dev/null || echo "none")
+          if [ "$LOCAL_VER" = "$REMOTE_VER" ]; then
+            echo "Already published $LOCAL_VER. Skipping publish."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "New version $LOCAL_VER detected (remote is $REMOTE_VER). Proceeding to publish."
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install dependencies
+        if: steps.check_version.outputs.skip != 'true'
         run: npm ci || npm install --no-fund --no-audit
 
       - name: Publish package
+        if: steps.check_version.outputs.skip != 'true'
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
