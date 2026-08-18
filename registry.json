@@ -189,6 +189,44 @@
         "default": false
       }
     ],
+    "BDB Standalone Power-Ups": [
+      {
+        "id": "heimdall-token-saver",
+        "name": "Heimdall Token Saver",
+        "description": "60-99% CLI context compression",
+        "type": "cli",
+        "install_method": "npx",
+        "package": "@hybridlabor-api/heimdall-token-saver",
+        "default": false
+      },
+      {
+        "id": "bdb-os-remote",
+        "name": "BDB OS Remote Gateway",
+        "description": "Zero-Trust Tailscale Multiplexer",
+        "type": "cli",
+        "install_method": "npx",
+        "package": "@hybridlabor-api/bdb-os-remote",
+        "default": false
+      },
+      {
+        "id": "bdb-synapse",
+        "name": "BDB Synapse 3D",
+        "description": "3D Codebase Visualizer",
+        "type": "cli",
+        "install_method": "npx",
+        "package": "@hybridlabor-api/bdb-synapse",
+        "default": false
+      },
+      {
+        "id": "memb",
+        "name": "memB Vector Engine",
+        "description": "Local semantic memory",
+        "type": "cli",
+        "install_method": "npx",
+        "package": "@hybridlabor-api/memb",
+        "default": false
+      }
+    ],
     "BDB Core Workspaces & Extensions": [
       {
         "id": "bdb-dev-creator-extension",

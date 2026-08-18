@@ -301,24 +301,34 @@ async function installGenericTool(targetMcpDir, targetSkillDir, toolInfo) {
 }
 
 async function installGitClone(targetDir, toolInfo) {
-    console.log(`\n${colors.cyan}Cloning or Updating ${toolInfo.name}...${colors.reset}`);
-    const destDir = path.join(targetDir, toolInfo.id);
-    if (fs.existsSync(destDir)) {
-        console.log(` -> Directory exists. Pulling latest updates from ${toolInfo.path}...`);
+    if (toolInfo.install_method === 'npx') {
+        console.log(`\n${colors.cyan}Installing ${toolInfo.name}...${colors.reset}`);
         try {
-            execSync(`git pull`, { cwd: destDir, stdio: 'inherit' });
-            console.log(`${colors.green} -> Update completed successfully.${colors.reset}`);
+            execSync(`npm install -g ${toolInfo.package}`, { stdio: 'inherit' });
+            console.log(`${colors.green} -> NPM install completed successfully.${colors.reset}`);
         } catch (err) {
-            console.warn(` -> Warning: Could not update repository: ${err.message}`);
+            console.warn(` -> Warning: Could not install via npm: ${err.message}`);
         }
-        return;
-    }
-    try {
-        console.log(` -> git clone ${toolInfo.path}`);
-        execSync(`git clone ${toolInfo.path} ${destDir}`, { stdio: 'inherit' });
-        console.log(`${colors.green} -> Clone completed successfully.${colors.reset}`);
-    } catch (err) {
-        console.warn(` -> Warning: Could not clone repository: ${err.message}`);
+    } else {
+        console.log(`\n${colors.cyan}Cloning or Updating ${toolInfo.name}...${colors.reset}`);
+        const destDir = path.join(targetDir, toolInfo.id);
+        if (fs.existsSync(destDir)) {
+            console.log(` -> Directory exists. Pulling latest updates from ${toolInfo.path}...`);
+            try {
+                execSync(`git pull`, { cwd: destDir, stdio: 'inherit' });
+                console.log(`${colors.green} -> Update completed successfully.${colors.reset}`);
+            } catch (err) {
+                console.warn(` -> Warning: Could not update repository: ${err.message}`);
+            }
+            return;
+        }
+        try {
+            console.log(` -> git clone ${toolInfo.path}`);
+            execSync(`git clone ${toolInfo.path} ${destDir}`, { stdio: 'inherit' });
+            console.log(`${colors.green} -> Clone completed successfully.${colors.reset}`);
+        } catch (err) {
+            console.warn(` -> Warning: Could not clone repository: ${err.message}`);
+        }
     }
 }
 
@@ -338,7 +348,7 @@ async function installGitClone(targetDir, toolInfo) {
         const toolInfo = allTools.find(t => t.id === id);
         if (!toolInfo) continue;
 
-        const gitCloneTypes = ['git_clone', 'suite', 'workspace', 'config', 'core_skills', 'agent', 'api', 'tool'];
+        const gitCloneTypes = ['git_clone', 'suite', 'workspace', 'config', 'core_skills', 'agent', 'api', 'tool', 'cli'];
 
         if (id === 'memb-mcp') {
             await installMembMcp(targets.mcpDir, toolInfo);
