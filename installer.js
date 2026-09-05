@@ -229,31 +229,26 @@ async function installMembMcp(targetMcpDir, toolInfo) {
 }
 
 async function installOpenWiki(targetSkillDir, apiKey, toolInfo) {
-    console.log(`\n${colors.cyan}Setting up BDB OpenWiki Daemon & Skill...${colors.reset}`);
+    console.log(`\n${colors.cyan}Setting up BDB OpenWiki Skill & Configuration...${colors.reset}`);
     const srcOpenWiki = path.isAbsolute(toolInfo.path) ? toolInfo.path : path.join(scriptDir, toolInfo.path);
     const destOpenWiki = path.join(targetSkillDir, 'openwiki-skill');
 
     copyDirRecursiveSync(srcOpenWiki, destOpenWiki);
     console.log(` -> Copied OpenWiki skill definition to ${destOpenWiki}`);
 
-    if (apiKey) {
-        const scriptBase = path.join(destOpenWiki, 'scripts');
-        const scriptPath = path.join(scriptBase, os.platform() === 'win32' ? 'install_daemon.ps1' : 'install_daemon.sh');
-        if (fs.existsSync(scriptPath)) {
-            try {
-                if (os.platform() !== 'win32') fs.chmodSync(scriptPath, '755');
-                console.log(` -> Installing OpenWiki daemon service...`);
-                const env = Object.assign({}, process.env, { GEMINI_API_KEY: apiKey });
-                const command = os.platform() === 'win32' ? 'powershell.exe' : 'sh';
-                const args = os.platform() === 'win32' ? ['-ExecutionPolicy', 'Bypass', '-File', scriptPath] : [scriptPath];
-                execSync(`${command} ${args.join(' ')}`, { env, stdio: 'ignore' });
-                console.log(`${colors.green} -> BDB OpenWiki daemon installed.${colors.reset}`);
-            } catch (err) {
-                console.warn(` -> Could not auto-install daemon: ${err.message}`);
+    const openWikiEnvPath = path.join(homeDir, '.openwiki', '.env');
+    if (!fs.existsSync(openWikiEnvPath)) {
+        try {
+            fs.mkdirSync(path.join(homeDir, '.openwiki'), { recursive: true });
+            let content = '# OpenWiki Configuration\n';
+            if (apiKey) {
+                content += `OPENWIKI_PROVIDER=gemini\nGEMINI_API_KEY=${apiKey}\nOPENWIKI_MODEL_ID=gemini-2.5-flash\n`;
             }
+            fs.writeFileSync(openWikiEnvPath, content, 'utf8');
+            console.log(`${colors.green} -> Initialized ~/.openwiki/.env configuration.${colors.reset}`);
+        } catch (err) {
+            console.warn(` -> Could not write ~/.openwiki/.env: ${err.message}`);
         }
-    } else {
-        console.log(` -> Skipping OpenWiki daemon background service (GEMINI_API_KEY omitted).`);
     }
 }
 
