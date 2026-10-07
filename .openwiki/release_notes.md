@@ -1,5 +1,11 @@
 # Release Notes
 
+## [v1.3.0]
+### Added
+- **OpenWiki Sync**: Support for synchronizing the ecosystem wiki.
+- **Fleet Secret Detection**: New security features for fleet-wide secret detection.
+- **Modern OpenWiki Setup**: Support for modern environment configurations via `installer.beta.js`.
+
 ## [v1.2.1] - 2026-08-22
 ### Added
 - **memB v2.3.0 Engine Sync**: Integrated SQLite WAL mode, FTS5 BM25 hybrid search, and SHA-256 deduplication into `tools/memb-mcp`.
