@@ -11,6 +11,7 @@ The installer is a Node.js-based CLI application that uses `enquirer` for intera
     - `tools/openwiki/`: Contains scripts for daemon management (`install_daemon.sh/ps1`), ecosystem wiki synchronization (`sync_ecosystem_wiki.py`), and API key verification (`verify_api_key.py`).
     - `tools/memb-mcp/`: Hybrid engine integration featuring SQLite WAL mode and FTS5 BM25 search.
     - `tools/token-saver/`: BDB MCP token-saver processors.
+- `.agents/`: Directory containing agent-based configurations and logic.
 
 ## Updating Mechanism
 The installer functions seamlessly as an updater. Because it relies heavily on `fs.copyFileSync`, `copyDirRecursiveSync`, and `git clone`, running the installer over an existing installation forcefully pulls the latest files from the payloads or GitHub directly over the old ones.
