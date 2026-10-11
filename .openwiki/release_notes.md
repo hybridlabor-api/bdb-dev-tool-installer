@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v1.3.1]
+### Changed
+- **Git Configuration**: Added `.gitignore` and `.openwikiignore` to untrack `node_modules` and documentation build artifacts.
+- **Repository Cleanup**: node_modules files removed from tracked history.
+
 ## [v1.3.0]
 ### Added
 - **OpenWiki Sync**: Support for synchronizing the ecosystem wiki.

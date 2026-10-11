@@ -1,5 +1,9 @@
 # BDB DEV Tool Installer Architecture
 
+## Configuration Management
+- `.gitignore`: Added to untrack `node_modules` and prevent large binary files from being committed to the repository.
+- `.openwikiignore`: Project-specific gitignore for the OpenWiki documentation workspace.
+
 ## Overview
 The installer is a Node.js-based CLI application that uses `enquirer` for interactive multi-stage menus. It reads configuration from a centralized `registry.json`.
 
