@@ -19,3 +19,4 @@ The installer is a Node.js-based CLI application that uses `enquirer` for intera
 
 ## Updating Mechanism
 The installer functions seamlessly as an updater. Because it relies heavily on `fs.copyFileSync`, `copyDirRecursiveSync`, and `git clone`, running the installer over an existing installation forcefully pulls the latest files from the payloads or GitHub directly over the old ones.
+

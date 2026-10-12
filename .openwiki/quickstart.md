@@ -17,4 +17,5 @@ node installer.js -y
 The installer acts as a general updater. Simply re-run `node installer.js` and select the tools you want to update. The script uses `copyDirRecursiveSync` and `git clone` to overwrite or fetch the latest updates into the target directories (`~/.gemini/config/...` and `~/`).
 
 ## Workspace Orientation
-Upon first clone, the repository includes `.gitignore` and `.openwikiignore` files that untrack `node_modules` and OpenWiki-specific build artifacts. These files ensure a clean git history and are automatically applied when the project is set up.
+Upon first clone, the repository includes `.gitignore` and `.openwikiignore` files that untrack `node_modules` and OpenWiki-specific build artifacts. These files ensure a clean git history and are automatically applied when the project is set up. The `.agents/` directory contains agent-based configurations that are also applied on setup.
+
