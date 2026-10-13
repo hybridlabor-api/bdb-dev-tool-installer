@@ -29,4 +29,3 @@
 ### Fixed
 - Addressed a major bug causing `detectTargetDirectories` to be undefined during the menu loop.
 - Optimized target path generation for cross-platform robustness.
-*Auto-updated via git commit 2bb7d3e*

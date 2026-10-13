@@ -18,4 +18,3 @@ The installer acts as a general updater. Simply re-run `node installer.js` and s
 
 ## Workspace Orientation
 Upon first clone, the repository includes `.gitignore` and `.openwikiignore` files that untrack `node_modules` and documentation build artifacts. These files ensure a clean git history and are automatically applied when the project is set up. The `.agents/` directory contains agent-based configurations that are also applied on setup.
-*Auto-updated via git commit 2bb7d3e*
