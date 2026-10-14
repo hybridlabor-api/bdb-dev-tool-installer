@@ -13,6 +13,12 @@ Follow the interactive prompts to install Core Tools, MCPs, and clone Hybridlabo
 node installer.js -y
 ```
 
+## Beta Installation
+```bash
+node installer.beta.js
+```
+Follow the interactive prompts for modern OpenWiki environment setups. This beta installer supports modern environment configurations and is designed for testing new setup logic without risking the stability of the primary `installer.js` used for standard tool deployments.
+
 ## Updating Existing Tools
 The installer acts as a general updater. Simply re-run `node installer.js` and select the tools you want to update. The script uses `copyDirRecursiveSync` and `git clone` to overwrite or fetch the latest updates into the target directories (`~/.gemini/config/...` and `~/`).
 
