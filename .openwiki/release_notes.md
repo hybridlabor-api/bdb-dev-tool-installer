@@ -29,3 +29,8 @@
 ### Fixed
 - Addressed a major bug causing `detectTargetDirectories` to be undefined during the menu loop.
 - Optimized target path generation for cross-platform robustness.
+
+## [v1.3.2]- Documentation Update
+### Added
+- **`.agents/` Directory**: Introduced agent-based configurations and logic for modular extensibility.
+- **Wiki Documentation**: Updated project specs and codebase documentation to reflect current architecture and workflows.

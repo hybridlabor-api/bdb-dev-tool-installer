@@ -10,12 +10,12 @@
 - **Trade-off**: Eliminates tracking of large, auto-generated dependency files. Developers must run `npm install` after cloning. Enables cleaner git history and smaller repository footprint.
 - **Constraint**: New contributors must ensure `node_modules` is installed via `npm install` before running the installer.
 
+### New Directory: `.agents/`
+- **Decision**: Created `.agents/` directory to contain agent-based configurations and logic.
+- **Trade-off**: Provides modular agent configurations for extensibility while requiring contributors to understand agent-based setup patterns.
+- **Constraint**: Agent configurations are applied on project setup and must be maintained alongside the installer.
+
 ## Security & Tooling
 ### Fleet Secret Detection
 - **Decision**: Integrated fleet secret detection capabilities directly into the OpenWiki toolset.
 - **Constraint**: Ensures that security scanning is a first-class citizen in the ecosystem synchronization workflow.
-
-## New Directory: `.agents/`
-- **Decision**: Created `.agents/` directory to contain agent-based configurations and logic.
-- **Trade-off**: Provides modular agent configurations for extensibility while requiring contributors to understand agent-based setup patterns.
-- **Constraint**: Agent configurations are applied on project setup and must be maintained alongside the installer.
